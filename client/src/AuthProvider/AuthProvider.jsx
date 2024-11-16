@@ -12,7 +12,9 @@ const AuthProvider = () => {
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
-
+  const login = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
   return <div>AuthProvider</div>;
 };
 export default AuthProvider;
