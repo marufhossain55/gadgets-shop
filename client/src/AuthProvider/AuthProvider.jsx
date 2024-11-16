@@ -13,7 +13,7 @@ import {
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
-const AuthProvider = () => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
@@ -34,12 +34,15 @@ const AuthProvider = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
     return () => {
       unsubscribe();
     };
   }, []);
-  const authInfo = { createUser, login, googleSignIn, logout };
-  return <div>AuthProvider</div>;
+  const authInfo = { user, loading, createUser, login, googleSignIn, logout };
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 export default AuthProvider;
