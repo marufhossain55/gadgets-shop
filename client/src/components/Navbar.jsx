@@ -47,8 +47,11 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
+      <div className="navbar-end ">
+        <div className="flex justify-center gap-4">
+          <a className="btn bg-black text-white">login</a>
+          <a className="btn bg-black text-white">sign up</a>
+        </div>
       </div>
     </div>
   );
