@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 export const AuthContext = createContext(null);
@@ -14,6 +15,10 @@ const AuthProvider = () => {
   };
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const logout = () => {
+    return signOut(auth);
   };
   return <div>AuthProvider</div>;
 };
