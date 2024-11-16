@@ -27,6 +27,8 @@ const AuthProvider = () => {
   const logout = () => {
     return signOut(auth);
   };
+
+  const authInfo = { createUser, login, googleSignIn, logout };
   return <div>AuthProvider</div>;
 };
 export default AuthProvider;
