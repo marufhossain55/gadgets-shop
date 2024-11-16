@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 const Register = () => {
+  const { createUser } = useAuth();
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
