@@ -11,6 +11,7 @@ import {
 } from 'firebase/auth';
 
 export const AuthContext = createContext(null);
+
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
