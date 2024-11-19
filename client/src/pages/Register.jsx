@@ -36,7 +36,7 @@ const Register = () => {
                 {...register('email', { required: true })}
               />
               {errors.email?.type === 'required' && (
-                <span className="bg-red-500 text-sm font-light">
+                <span className="text-red-500 text-sm font-light">
                   this field is required
                 </span>
               )}
@@ -52,12 +52,12 @@ const Register = () => {
                 {...register('password', { required: true, minLength: 6 })}
               />
               {errors.password?.type === 'required' && (
-                <span className="bg-red-500 text-sm font-light">
+                <span className="text-red-500 text-sm font-light">
                   this field is required
                 </span>
               )}
               {errors.password?.type === 'minLength' && (
-                <span className="bg-red-500 text-sm font-light">
+                <span className="text-red-500 text-sm font-light">
                   password must be 6 character
                 </span>
               )}
@@ -72,19 +72,19 @@ const Register = () => {
                 className="input input-bordered"
                 {...register('confirmPassword', {
                   required: true,
-                  minLength: 6,
+                  validate: (value) => {
+                    if (watch('password') != value) {
+                      return `your password doesn't match`;
+                    }
+                  },
                 })}
               />
-              {errors.confirmPassword?.type === 'required' && (
-                <span className="bg-red-500 text-sm font-light">
-                  this field is required
+              {errors.confirmPassword && (
+                <span className="text-red-500 text-sm font-light">
+                  both field should match
                 </span>
               )}
-              {errors.confirmPassword?.type === 'minLength' && (
-                <span className="bg-red-500 text-sm font-light">
-                  password must be 6 character
-                </span>
-              )}
+
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
