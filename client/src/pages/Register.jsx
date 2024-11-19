@@ -1,7 +1,17 @@
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import { useForm } from 'react-hook-form';
 const Register = () => {
   const { createUser } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -14,7 +24,7 @@ const Register = () => {
           </p>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -23,8 +33,13 @@ const Register = () => {
                 type="email"
                 placeholder="email"
                 className="input input-bordered"
-                required
+                {...register('email', { required: true })}
               />
+              {errors.email?.type === 'required' && (
+                <span className="bg-red-500 text-sm font-light">
+                  this field is required
+                </span>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -34,8 +49,18 @@ const Register = () => {
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
-                required
+                {...register('password', { required: true, minLength: 6 })}
               />
+              {errors.password?.type === 'required' && (
+                <span className="bg-red-500 text-sm font-light">
+                  this field is required
+                </span>
+              )}
+              {errors.password?.type === 'minLength' && (
+                <span className="bg-red-500 text-sm font-light">
+                  password must be 6 character
+                </span>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -45,8 +70,21 @@ const Register = () => {
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
-                required
+                {...register('confirmPassword', {
+                  required: true,
+                  minLength: 6,
+                })}
               />
+              {errors.confirmPassword?.type === 'required' && (
+                <span className="bg-red-500 text-sm font-light">
+                  this field is required
+                </span>
+              )}
+              {errors.confirmPassword?.type === 'minLength' && (
+                <span className="bg-red-500 text-sm font-light">
+                  password must be 6 character
+                </span>
+              )}
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
@@ -54,7 +92,9 @@ const Register = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <button type="submit" className="btn btn-primary">
+                register
+              </button>
             </div>
           </form>
           <Link to="/login">already have an account? Login</Link>
